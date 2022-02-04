@@ -1,4 +1,8 @@
 export type Tile = {
   n: number,
-  s: 'm' | 'p' | 's' | 'j',
+  s: TileSort,
 };
+
+export type TileSort = 'm' | 'p' | 's' | 'j';
+
+export type BoardInfo = { [key in TileSort]: number[] };
