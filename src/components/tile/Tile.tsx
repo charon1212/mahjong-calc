@@ -1,17 +1,16 @@
+import React from 'react';
 import { Tile as TileType } from '../../domain/type';
 import * as img from './img/import';
 
 type Props = {
-  tile: TileType;
-  width?: string;
+  tile?: TileType;
+  divStyle?: React.CSSProperties;
 };
 const Tile = (props: Props) => {
-  const { tile, width } = props;
+  const { tile, divStyle } = props;
   return (
     <>
-      <div>
-        <img style={{ width }} src={getSource(tile)} />
-      </div>
+      <div style={{ ...divStyle }}>{tile ? <img style={{ width: '100%' }} src={getSource(tile)} /> : ''}</div>
     </>
   );
 };
