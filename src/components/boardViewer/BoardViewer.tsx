@@ -1,4 +1,4 @@
-import { BoardInfo, Tile as TileType, TileSort } from '../../domain/type';
+import { BoardInfo, Tile as TileType, TileSort } from '../../domain/mahjong/type';
 import Tile from '../tile/Tile';
 
 const tileSortKeys: TileSort[] = ['m', 'p', 's', 'j'];

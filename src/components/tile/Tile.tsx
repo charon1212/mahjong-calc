@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tile as TileType } from '../../domain/type';
+import { Tile as TileType } from '../../domain/mahjong/type';
 import * as img from './img/import';
 
 type Props = {

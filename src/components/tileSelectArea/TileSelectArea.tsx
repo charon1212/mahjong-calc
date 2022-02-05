@@ -1,4 +1,4 @@
-import { Tile as TileType } from '../../domain/type';
+import { Tile as TileType } from '../../domain/mahjong/type';
 import Tile from '../tile/Tile';
 
 type Props = {
