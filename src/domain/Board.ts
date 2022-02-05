@@ -1,5 +1,6 @@
-import { BoardInfo, Tile } from "./type";
+import { BoardInfo, Tile, TileSort } from "./type";
 
+const tileSortKeys: TileSort[] = ['m', 'p', 's', 'j',];
 export class Board {
 
   public board: BoardInfo = {
@@ -22,6 +23,11 @@ export class Board {
   }
   delete(tile: Tile) {
     this.board[tile.s][tile.n - 1] -= 1;
+  }
+  getLength(): number {
+    return tileSortKeys
+      .map((key) => this.board[key].reduce((p, c) => p + c, 0))
+      .reduce((p, c) => p + c, 0);
   }
 
 }
