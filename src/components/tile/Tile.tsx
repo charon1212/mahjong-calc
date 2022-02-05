@@ -5,12 +5,20 @@ import * as img from './img/import';
 type Props = {
   tile?: TileType;
   divStyle?: React.CSSProperties;
+  onClick?: (tile?: TileType) => unknown;
 };
 const Tile = (props: Props) => {
-  const { tile, divStyle } = props;
+  const { tile, divStyle, onClick } = props;
   return (
     <>
-      <div style={{ ...divStyle }}>{tile ? <img style={{ width: '100%' }} src={getSource(tile)} /> : ''}</div>
+      <div
+        style={{ ...divStyle }}
+        onClick={() => {
+          if (onClick) onClick(tile);
+        }}
+      >
+        {tile ? <img style={{ width: '100%' }} src={getSource(tile)} /> : ''}
+      </div>
     </>
   );
 };
