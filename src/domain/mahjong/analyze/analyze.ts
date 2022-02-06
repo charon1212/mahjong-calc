@@ -68,7 +68,8 @@ export const breakBlocks = (arr: number[], containHead: boolean, allowSeries: bo
         if (notSet.includes(i)) continue
         const arr2 = [...arr];
         arr2[i - 1] -= 3;
-        blocks.push(...(breakBlocks(arr2, false, allowSeries, [...notSet, i]).map((v) => {
+        notSet.push(i);
+        blocks.push(...(breakBlocks(arr2, false, allowSeries, [...notSet]).map((v) => {
           v.sets.push([i, i, i]);
           return v;
         })));
@@ -88,13 +89,13 @@ export const breakBlocks = (arr: number[], containHead: boolean, allowSeries: bo
  */
 const makeSeries = (arr: number[]): number[][] | undefined => {
   const series = [] as number[][];
-  const n = series.length;
+  const n = arr.length;
   let i = 0;
   do {
     if (arr[i] === 0) {
       i++;
     } else {
-      if (arr[i + 1] < 0 || arr[i + 2] < 0) return undefined;
+      if (arr[i + 1] <= 0 || arr[i + 2] <= 0) return undefined;
       series.push([i + 1, i + 2, i + 3]);
       arr[i]--;
       arr[i + 1]--;
