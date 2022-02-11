@@ -8,7 +8,7 @@ const TileSelectArea = (props: Props) => {
   const { onClick } = props;
   return (
     <>
-      <div style={{ width: '300px' }}>
+      <div style={{ width: '100%' }}>
         <TileSelectRow s='m' onClick={onClick} />
         <TileSelectRow s='p' onClick={onClick} />
         <TileSelectRow s='s' onClick={onClick} />
