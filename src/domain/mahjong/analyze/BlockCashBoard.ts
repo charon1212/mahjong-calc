@@ -2,7 +2,7 @@ import { maxTileLength, tileSortKeys } from "../const";
 import { BoardInfo, Tile, TileSort } from "../type";
 import { breakBlocks } from "./breakBlocks";
 import { createMod3Map, getMod3Type } from "./mod3";
-import { Blocks, Mod3Map, TileSortCount } from "./type";
+import { Blocks, TileSortCount } from "./type";
 
 export class BlockCashBoard {
 
