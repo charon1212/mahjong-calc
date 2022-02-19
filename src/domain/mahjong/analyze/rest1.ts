@@ -4,7 +4,8 @@ import { getTileNumList } from "../util";
 import { BlockCashBoard } from "./BlockCashBoard";
 import { canRest1, createMod3Map, getMod3Type } from "./mod3";
 
-export const isRest1 = (cashBoard: BlockCashBoard): { push: Tile, get: Tile[] }[] => {
+export type Rest1Expect = { push: Tile, get: Tile[] }[];
+export const checkRest1 = (cashBoard: BlockCashBoard): Rest1Expect => {
 
   const result = [] as { push: Tile, get: Tile[] }[];
   const mod3Map = createMod3Map(cashBoard.getSortCount());
