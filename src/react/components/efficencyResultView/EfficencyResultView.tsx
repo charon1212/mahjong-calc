@@ -1,6 +1,8 @@
 import { Typography } from '@mui/material';
 import { AnalyzeResult } from '../../../domain/mahjong/analyze/analyze';
 import ShowRest1Expect from './ShowRest1Expect';
+import ShowRest2Expect from './ShowRest2Expect';
+import ShowRest3Expect from './ShowRest3Expect';
 
 type Props = { result: AnalyzeResult };
 const EfficencyResultView = (props: Props) => {
@@ -17,6 +19,8 @@ const EfficencyResultView = (props: Props) => {
           {result.rest === -1 ? ' => 3シャンテン以上' : ''}
         </Typography>
         <div>{result.rest === 1 ? <ShowRest1Expect expect={result.expect} /> : ''}</div>
+        <div>{result.rest === 2 ? <ShowRest2Expect expect={result.expect} /> : ''}</div>
+        <div>{result.rest === 3 ? <ShowRest3Expect expect={result.expect} /> : ''}</div>
       </div>
     </>
   );
