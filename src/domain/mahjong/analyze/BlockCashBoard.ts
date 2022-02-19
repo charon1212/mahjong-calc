@@ -15,7 +15,6 @@ export class BlockCashBoard {
   public getTotalCount = () => this.totalCount;
   // 牌種ごとのブロック構成
   private blocks: Partial<{ [key in TileSort]: Blocks[] }> = {};
-  public getBlockCash = () => this.blocks;
   private getCashBlocks(key: TileSort): Blocks[] {
     const cash = this.blocks[key];
     if (cash === undefined) return this.registerBlocks(key);
@@ -99,5 +98,10 @@ export class BlockCashBoard {
     return true;
   }
 
+  getUncompleteTileSort(): TileSort[] {
+    const uncomplete = [] as TileSort[];
+    for (let key of tileSortKeys) if (this.getCashBlocks(key).length === 0) uncomplete.push(key);
+    return uncomplete
+  }
 
 }
