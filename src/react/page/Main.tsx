@@ -1,56 +1,39 @@
-import { Box, Button, Paper } from "@mui/material";
-import { useState } from "react";
-import { analyzeBoard } from "../../domain/mahjong/analyze/analyze";
-import { addTile, cloneBoard, deleteTile, getBoardLength, getInitialBoard } from "../../domain/mahjong/Board";
-import { maxBoardLength } from "../../domain/mahjong/const";
-import { BoardInfo } from "../../domain/mahjong/type";
-import BoardViewer from "../components/boardViewer/BoardViewer";
-import TileSelectArea from "../components/tileSelectArea/TileSelectArea";
+import { AppBar, Box, Button, Paper, Toolbar, Typography } from '@mui/material';
+import { useState } from 'react';
+import EfficencyCalc from './EfficencyCalc';
+import RiskCalc from './RiskCalc';
 
 const Main = () => {
-  const [board, setBoard] = useState(getInitialBoard());
-  const boardLength = getBoardLength(board);
-  const c = (board: BoardInfo) => setBoard(cloneBoard(board));
-  const [result, setResult] = useState<string>('');
-  const onClickJudgeComp = () => {
-    if (boardLength !== maxBoardLength) {
-      alert('14牌そろっていません。');
-      return;
-    }
-    const result = analyzeBoard(board);
-    setResult(JSON.stringify(result));
-  };
-  const debug = () => {
-    const start = Date.now();
-    for (let i = 0; i < 1000; i++) {
-      const result = analyzeBoard(board);
-    }
-    const end = Date.now();
-    console.log({ diff: end - start });
+  const [pageId, setPageId] = useState<'efficency-calc' | 'risk-calc'>('efficency-calc');
+  const menuHandler = (id: typeof pageId) => {
+    return () => {
+      setPageId(id);
+    };
   };
 
   return (
     <>
-      <h1>TODO</h1>
-      <Box sx={{ width: { xs: '100%', sm: '590px' } }}>
-        <Paper sx={{ padding: '5px' }}>
-          <h3>手牌（クリックで削除）</h3>
-          {result && <div style={{ color: 'red' }}>{result}</div>}
-          <div style={{ minHeight: '65px' }}>
-            <BoardViewer
-              board={board}
-              restSpaceLength={boardLength < maxBoardLength ? maxBoardLength - boardLength : 0}
-              onClick={(t) => c(deleteTile(board, t))}
-            />
-          </div>
-          <h3>牌一覧（クリックで追加）</h3>
-          <TileSelectArea onClick={(t) => t && c(addTile(board, t))} />
-          <div>
-            <Button onClick={onClickJudgeComp}>アガリ判定</Button>
-            <Button onClick={debug}>test</Button>
-          </div>
-        </Paper>
-      </Box>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <AppBar position='static'>
+          <Toolbar>
+            <Typography variant='h5' sx={{ flexGrow: 1 }}>
+              麻雀ツール
+            </Typography>
+            <Button color='inherit' variant='outlined' sx={{ margin: '0 5px 0 5px' }} onClick={menuHandler('efficency-calc')}>
+              牌効率
+            </Button>
+            <Button color='inherit' variant='outlined' sx={{ margin: '0 5px 0 5px' }} onClick={menuHandler('risk-calc')}>
+              安全度
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ width: { xs: '100%', sm: '590px' } }}>
+          <Paper sx={{ padding: '5px' }}>
+            {pageId === 'efficency-calc' ? <EfficencyCalc /> : ''}
+            {pageId === 'risk-calc' ? <RiskCalc /> : ''}
+          </Paper>
+        </Box>
+      </div>
     </>
   );
 };
