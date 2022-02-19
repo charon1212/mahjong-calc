@@ -1,11 +1,12 @@
-import { Button } from "@mui/material";
-import { useState } from "react";
-import { analyzeBoard } from "../../domain/mahjong/analyze/analyze";
-import { addTile, cloneBoard, deleteTile, getBoardLength, getInitialBoard } from "../../domain/mahjong/Board";
-import { maxBoardLength } from "../../domain/mahjong/const";
-import { BoardInfo } from "../../domain/mahjong/type";
-import BoardViewer from "../components/boardViewer/BoardViewer";
-import TileSelectArea from "../components/tileSelectArea/TileSelectArea";
+import { Button, Typography } from '@mui/material';
+import { useState } from 'react';
+import { analyzeBoard, AnalyzeResult } from '../../domain/mahjong/analyze/analyze';
+import { addTile, cloneBoard, deleteTile, getBoardLength, getInitialBoard } from '../../domain/mahjong/Board';
+import { maxBoardLength } from '../../domain/mahjong/const';
+import { BoardInfo } from '../../domain/mahjong/type';
+import BoardViewer from '../components/boardViewer/BoardViewer';
+import EfficencyResultView from '../components/efficencyResultView/EfficencyResultView';
+import TileSelectArea from '../components/tileSelectArea/TileSelectArea';
 
 type Props = {};
 const EfficencyCalc = (props: Props) => {
@@ -13,28 +14,26 @@ const EfficencyCalc = (props: Props) => {
   const [board, setBoard] = useState(getInitialBoard());
   const boardLength = getBoardLength(board);
   const c = (board: BoardInfo) => setBoard(cloneBoard(board));
-  const [result, setResult] = useState<string>('');
+  const [result, setResult] = useState<AnalyzeResult | undefined>(undefined);
   const onClickJudgeComp = () => {
     if (boardLength !== maxBoardLength) {
       alert('14牌そろっていません。');
       return;
     }
-    const result = analyzeBoard(board);
-    setResult(JSON.stringify(result));
-  };
-  const debug = () => {
-    const start = Date.now();
-    for (let i = 0; i < 1000; i++) {
-      const result = analyzeBoard(board);
-    }
-    const end = Date.now();
-    console.log({ diff: end - start });
+    setResult(analyzeBoard(board));
   };
 
   return (
     <>
-      <h3>手牌（クリックで削除）</h3>
-      {result && <div style={{ color: 'red' }}>{result}</div>}
+      {result === undefined ? '' : <EfficencyResultView result={result} />}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+          手牌（クリックで削除）
+        </Typography>
+        <Button onClick={onClickJudgeComp} variant='contained' sx={{ width: '100px', height: '30px' }}>
+          計算
+        </Button>
+      </div>
       <div style={{ minHeight: '65px' }}>
         <BoardViewer
           board={board}
@@ -42,12 +41,10 @@ const EfficencyCalc = (props: Props) => {
           onClick={(t) => c(deleteTile(board, t))}
         />
       </div>
-      <h3>牌一覧（クリックで追加）</h3>
+      <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+        牌一覧（クリックで追加）
+      </Typography>
       <TileSelectArea onClick={(t) => t && c(addTile(board, t))} />
-      <div>
-        <Button onClick={onClickJudgeComp}>アガリ判定</Button>
-        <Button onClick={debug}>test</Button>
-      </div>
     </>
   );
 };
