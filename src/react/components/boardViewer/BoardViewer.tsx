@@ -1,10 +1,10 @@
-import { BoardInfo, Tile as TileType, TileSort } from '../../domain/mahjong/type';
-import Tile from '../tile/Tile';
+import { BoardInfo, Tile, TileSort } from '../../../domain/mahjong/type';
+import TileView from '../tile/TileView';
 
 const tileSortKeys: TileSort[] = ['m', 'p', 's', 'j'];
 type Props = {
   board: BoardInfo;
-  onClick?: (tile: TileType) => unknown;
+  onClick?: (tile: Tile) => unknown;
   restSpaceLength: number;
 };
 const BoardViewer = (props: Props) => {
@@ -14,7 +14,7 @@ const BoardViewer = (props: Props) => {
       ...arr.map((v, i) =>
         [...Array(v)].map(() => (
           <div style={{ width: '7.14%' }}>
-            <Tile
+            <TileView
               tile={{ s, n: i + 1 }}
               onClick={() => {
                 if (onClick) onClick({ s, n: i + 1 });
@@ -34,7 +34,7 @@ const BoardViewer = (props: Props) => {
         {show('j', board.j)}
         {[...Array(restSpaceLength)].map(() => (
           <div style={{ width: '7.14%' }}>
-            <Tile />
+            <TileView />
           </div>
         ))}
       </div>

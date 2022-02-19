@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tile as TileType } from '../../domain/mahjong/type';
+import { Tile as TileType } from '../../../domain/mahjong/type';
 import * as img from './img/import';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   divStyle?: React.CSSProperties;
   onClick?: (tile?: TileType) => unknown;
 };
-const Tile = (props: Props) => {
+const TileView = (props: Props) => {
   const { tile, divStyle, onClick } = props;
   return (
     <>
@@ -66,4 +66,4 @@ const getSource = (tile: TileType): string => {
   return '';
 };
 
-export default Tile;
+export default TileView;

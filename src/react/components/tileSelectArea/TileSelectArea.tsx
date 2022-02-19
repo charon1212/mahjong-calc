@@ -1,8 +1,8 @@
-import { Tile as TileType } from '../../domain/mahjong/type';
-import Tile from '../tile/Tile';
+import { Tile } from '../../../domain/mahjong/type';
+import TileView from '../tile/TileView';
 
 type Props = {
-  onClick?: (tile?: TileType) => unknown;
+  onClick?: (tile?: Tile) => unknown;
 };
 const TileSelectArea = (props: Props) => {
   const { onClick } = props;
@@ -19,8 +19,8 @@ const TileSelectArea = (props: Props) => {
 };
 
 type PropsTileSelectRow = {
-  s: TileType['s'];
-  onClick?: (tile?: TileType) => unknown;
+  s: Tile['s'];
+  onClick?: (tile?: Tile) => unknown;
 };
 const TileSelectRow = (props: PropsTileSelectRow) => {
   const { s, onClick } = props;
@@ -30,7 +30,7 @@ const TileSelectRow = (props: PropsTileSelectRow) => {
     <>
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
         {arr.map((i) => (
-          <Tile tile={i <= max ? { n: i, s } : undefined} divStyle={{ width: '11%' }} onClick={onClick} />
+          <TileView tile={i <= max ? { n: i, s } : undefined} divStyle={{ width: '11%' }} onClick={onClick} />
         ))}
       </div>
     </>

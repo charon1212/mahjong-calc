@@ -1,7 +1,9 @@
+import Main from './react/page/Main';
+
 const App = () => {
   return (
     <>
-      <h1>TODO</h1>
+      <Main />
     </>
   );
 };
