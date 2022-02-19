@@ -4,7 +4,7 @@ import { isRest1 } from "./rest1";
 
 export type AnalyzeResult = {
   rest: number, // 後何個の牌で上がれるか。アガリは0、テンパイは1、1シャンテンは2、2シャンテンは3、...
-  set?: { push: Tile, get: Tile }[],
+  set?: { push: Tile, get: Tile[] }[],
 };
 
 export const analyzeBoard = (b: BoardInfo): AnalyzeResult => {
