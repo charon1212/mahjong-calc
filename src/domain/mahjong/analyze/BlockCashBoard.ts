@@ -24,7 +24,7 @@ export class BlockCashBoard {
     if (this.sortCount[key] === 0) return this.blocks[key] = [{ head: undefined, series: [], sets: [] }];
     const mod3 = this.sortCount[key] % 3;
     if (mod3 === 1) return this.blocks[key] = [];
-    return this.blocks[key] = breakBlocks(this.b[key], key !== 'j');
+    return this.blocks[key] = breakBlocks(this.b[key], key !== 'j', { count: this.sortCount[key] });
   }
 
   /**

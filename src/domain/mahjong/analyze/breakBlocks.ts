@@ -8,7 +8,7 @@ import { Blocks } from "./type";
  * @param innerCash 計算を効率化するためのキャッシュ。countは総数、notSetは暗刻にしない数値のリスト。
  * @returns 雀頭・順子・暗刻の取りうる組み合わせの配列。1,1,1,2,3,4,4,4のような、「11 : 123 : 444」とも「111 : 234 : 44」ともとれる場合、配列長2で両方を返却する。
  */
-export const breakBlocks = (arr: number[], allowSeries: boolean, innerCash?: { count: number, notSet: number[], }): Blocks[] => {
+export const breakBlocks = (arr: number[], allowSeries: boolean, innerCash?: { count?: number, notSet?: number[], }): Blocks[] => {
 
   const count = innerCash?.count || arr.reduce((p, c) => p + c, 0);
   if (count === 0) return [{ head: undefined, sets: [], series: [] }];
